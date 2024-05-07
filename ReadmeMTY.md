@@ -1,0 +1,12 @@
+# 目前的数据处理流程
+## PSD以及int的暂存
+将Zhijie的数据类型处理为一个h5文件，h5文件中的一个dataset对应一个数据文件，dataset的attributes对应数据测量时的硬件设置：
+- h5_parallel_writter.py：将其中的变量file_path修改为Zhijie类型数据所在文件夹的母文件夹，其余变量自行设置
+
+将一个h5文件作为一个group整合进另一个大h5文件，同时计算出积分噪声，存储在该group的attribute中。P为Zhijie的结果，P_int为int文件的结果：
+- h5reader_write_to_processed.py：需要设置result_path为小h5文件的所在文件夹路径，filename为小h5文件名，int_folder_path为int文件所在文件夹路径（若没有可以填空字符串），processed_path和fileName_processed可以自行设置。
+
+将上述h5文件整理为一个便于origin画图的h5文件，包含若干个group，group中包含若干个compound_dataset，每一列为对应磁场的psd数据，第一列为按照Zhijie方法生成的频率信息（可能要改）：
+- h5_process_writeto_origindraw.py：需要设置processfile为待处理文件路径，其他变量可自定义。
+
+### 待续
